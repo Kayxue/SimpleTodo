@@ -20,7 +20,7 @@ pub struct Todo {
     pub description: Option<String>,
 }
 
-#[utoipa::path(summary = "Get an element from the todo list", responses((status = OK, body = Todo)),params(("todoId", description = "Todo id"),))]
+#[utoipa::path(summary = "Get an element from the todo list", responses((status = OK, body = Todo)), params(("todoId", description = "Todo id")))]
 #[get("/{todoId}")]
 pub async fn getTodo(todoId: Path<String>) -> Result<impl Responder, Error> {
     Ok(Json(Todo {
