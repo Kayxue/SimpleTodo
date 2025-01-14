@@ -21,7 +21,9 @@ async fn main() -> Result<(), impl Error> {
             .openapi(ApiDoc::openapi())
             .map(|app| app.wrap(Logger::default()))
             .service(scope("/todo").service(getTodo).service(addTodo))
-            .openapi_service(|api| Scalar::with_url("/docs", api))
+            .openapi_service(|api| {
+                Scalar::with_url("/docs", api).custom_html(include_str!("APIBase.html"))
+            })
             .into_app()
     })
     .bind((Ipv4Addr::UNSPECIFIED, 3000))?
